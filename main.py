@@ -125,7 +125,7 @@ async def info(message):
             send_mess = f"<b>Цього користувача додано до бази даних</b>"
             await bot.send_message(message.chat.id, send_mess, parse_mode="html")
         banu = BotDB.check_ban(kor_id)
-        send_mess = f"<b>В цього користувача {banu} бану</b>"
+        send_mess = f"<b>У користувача {kor_name} {banu} бану</b>"
         await bot.send_message(message.chat.id, send_mess, parse_mode="html")
         await log(f"У користувача {kor_name} {banu} бану")
     await log("Зроблено")
@@ -135,6 +135,23 @@ async def info(message):
 async def mess(message):
     await log(f"--------------------\n{time.ctime()}\n{message.from_user.first_name} {message.from_user.last_name} @{message.from_user.username} id={message.from_user.id}\n{message.chat.title} {message.chat.invite_link} id = {message.chat.id}\n-\nВідправив(ла): {message.text}")
 
+
+@dp.message_handler(content_types=["sticker"])
+async def mess(message):
+    await log(f"--------------------\n{time.ctime()}\n{message.from_user.first_name} {message.from_user.last_name} @{message.from_user.username} id={message.from_user.id}\n{message.chat.title} {message.chat.invite_link} id = {message.chat.id}\n-\nВідправив(ла) стікер")
+    if message.sticker == "3":
+        await log("lol")
+    else:
+        await log(message.sticker.file_unique_id)
+        if message.sticker.file_unique_id == "AgADNxIAAoL0kEs":
+            await log("Я бачу стікер -0.25 бану")
+            await minus(message)
+        else:
+            if message.sticker.file_unique_id == "AgADHxEAAq8dmEs":
+                await log("Я бачу стікер +0.25 бану")
+                await plus(message)
+            else:
+                await log("Цей стікер мені не знайомий")
 
 print(f"Я живий!")
 

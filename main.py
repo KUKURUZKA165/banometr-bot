@@ -142,7 +142,6 @@ async def mess(message):
     if message.sticker == "3":
         await log("lol")
     else:
-        await log(message.sticker.file_unique_id)
         if message.sticker.file_unique_id == "AgADNxIAAoL0kEs":
             await log("Я бачу стікер -0.25 бану")
             await minus(message)
